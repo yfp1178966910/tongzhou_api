@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.RoleAuthDao">
+
+    <sql id="Base_Column_List">
+
+        `role_id`,`role_auth`
+    </sql>
+
+
+    <!-- 主键查询 -->
+    <select id="findById" resultType="com.combanc.cas.client.springboot.entity.RoleAuthEntity" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from role_auth
+        where  role_id = #{roleId}
+    </select>
+
+
+</mapper>

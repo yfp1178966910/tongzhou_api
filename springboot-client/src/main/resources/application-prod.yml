@@ -1,0 +1,79 @@
+spring:  #spring.mvc.throw-exception-if-no-handler-found=true #spring.resources.add-mappings=false
+  servlet:
+    multipart:
+      max-request-size: -1
+      max-file-size: -1
+  jackson:   #json的序列化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    cache: false
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  # multipart:
+  #   enabled: true
+
+
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #    url: jdbc:mysql://10.20.10.22:3306/data_syh?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true&zeroDateTimeBehavior=convertToNull
+    #    username: syh
+    #    password: CNlive@2020
+    url: jdbc:mysql://localhost:3306/data_tongzhou?serverTimezone=GMT&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 1qaz@WSX
+    driverClassName: com.mysql.cj.jdbc.Driver
+    #配置初始化大小/最小/最大
+    initial-size: 10
+    min-idle: 5
+    max-active: 10
+    #获取连接等待超时时间
+    max-wait: 60000
+    #间隔多久进行一次检测，检测需要关闭的空闲连接
+    time-between-eviction-runs-millis: 60000
+    #一个连接在池中最小生存的时间
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x'
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+    pool-prepared-statements: false
+    max-pool-prepared-statement-per-connection-size: 50
+    removeAbandoned: true
+    filters: stat
+    cachePrepstmts: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.come2art.dao
+  configuration:
+    map-underscore-to-camel-case: true # mybatis开启数据库字段自动映射为java驼峰命名规则
+    cache-enabled: false
+
+#common
+#batchUpload.tempFilePath: /Users/a/data/temp/
+#batchUpload.files: /Users/a/data  #本地
+
+upload.tempFilePath: /data/shineup/data/temp
+upload.files: /data/shineup/data
+
+#deposite.ip: api.cloudtheatre.cn
+#deposite.domain: http://api.cloudtheatre.cn:18416
+
+deposite.ip: syhtest.iseasoon.com #测试服务
+deposite.domain: http://syhtest.iseasoon.com:18416
+
+COSupload.Bucket: yanxiukecheng-1304308235
+COSupload.Region: ap-nanjing
+COSupload.secretId: AKIDsTnsBQIPaankRunueNuLVP5SVbUOcasq
+COSupload.secretKey: rGj14tS9blnjRGrDG7i8VdvBKErHQt9O
+COSupload.key.prefix: https://yanxiukecheng-1304308235.cos.ap-nanjing.myqcloud.com/
+
+#\u5BF9\u63A5\u7CFB\u7EDF\u8BBF\u95EE\u5730\u5740
+spring.cas.server-name: https://ke.bjtzeduyun.com:443
+spring.cas.localFront: https://ke.bjtzeduyun.com/courseList?JSESSIONID=

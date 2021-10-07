@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.combanc.cas.client.springboot.dao.CenterIntroduceEntityMapper">
+    <resultMap id="BaseResultMap" type="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="introduce_title" jdbcType="VARCHAR" property="introduceTitle"/>
+        <result column="introduce_brief" jdbcType="VARCHAR" property="introduceBrief"/>
+        <result column="back_pic" jdbcType="VARCHAR" property="backPic"/>
+        <result column="introduce_type" jdbcType="VARCHAR" property="introduceType"/>
+        <result column="introduce_weight" jdbcType="INTEGER" property="introduceWeight"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        <result column="introduce_content" jdbcType="LONGVARCHAR" property="introduceContent"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, introduce_title, introduce_brief, back_pic, introduce_type, introduce_weight,
+        create_time
+    </sql>
+    <sql id="Blob_Column_List">
+        introduce_content
+    </sql>
+    <select id="selectByExampleWithBLOBs"
+            parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntityExample"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from center_introduce
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntityExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from center_introduce
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null and offset != null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
+
+    <select id="selectByPgExampleCount" resultType="java.lang.Integer"
+            parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntityExample">
+        select count(1) from center_introduce
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from center_introduce
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from center_introduce
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        insert into center_introduce (id, introduce_title, introduce_brief,
+        back_pic, introduce_type, introduce_weight,
+        create_time, introduce_content)
+        values (#{id,jdbcType=VARCHAR}, #{introduceTitle,jdbcType=VARCHAR}, #{introduceBrief,jdbcType=VARCHAR},
+        #{backPic,jdbcType=VARCHAR}, #{introduceType,jdbcType=VARCHAR}, #{introduceWeight,jdbcType=INTEGER},
+        #{createTime,jdbcType=VARCHAR}, #{introduceContent,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        insert into center_introduce
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="introduceTitle != null">
+                introduce_title,
+            </if>
+            <if test="introduceBrief != null">
+                introduce_brief,
+            </if>
+            <if test="backPic != null">
+                back_pic,
+            </if>
+            <if test="introduceType != null">
+                introduce_type,
+            </if>
+            <if test="introduceWeight != null">
+                introduce_weight,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="introduceContent != null">
+                introduce_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceTitle != null">
+                #{introduceTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceBrief != null">
+                #{introduceBrief,jdbcType=VARCHAR},
+            </if>
+            <if test="backPic != null">
+                #{backPic,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceType != null">
+                #{introduceType,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceWeight != null">
+                #{introduceWeight,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceContent != null">
+                #{introduceContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntityExample"
+            resultType="java.lang.Integer">
+        select count(*) from center_introduce
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        update center_introduce
+        <set>
+            <if test="introduceTitle != null">
+                introduce_title = #{introduceTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceBrief != null">
+                introduce_brief = #{introduceBrief,jdbcType=VARCHAR},
+            </if>
+            <if test="backPic != null">
+                back_pic = #{backPic,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceType != null">
+                introduce_type = #{introduceType,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceWeight != null">
+                introduce_weight = #{introduceWeight,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceContent != null">
+                introduce_content = #{introduceContent,jdbcType=LONGVARCHAR},
+            </if>
+
+
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs"
+            parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        update center_introduce
+        set introduce_title = #{introduceTitle,jdbcType=VARCHAR},
+        introduce_brief = #{introduceBrief,jdbcType=VARCHAR},
+        back_pic = #{backPic,jdbcType=VARCHAR},
+        introduce_type = #{introduceType,jdbcType=VARCHAR},
+        introduce_weight = #{introduceWeight,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=VARCHAR},
+        introduce_content = #{introduceContent,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.combanc.cas.client.springboot.entity.CenterIntroduceEntity">
+        update center_introduce
+        set introduce_title = #{introduceTitle,jdbcType=VARCHAR},
+        introduce_brief = #{introduceBrief,jdbcType=VARCHAR},
+        back_pic = #{backPic,jdbcType=VARCHAR},
+        introduce_type = #{introduceType,jdbcType=VARCHAR},
+        introduce_weight = #{introduceWeight,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

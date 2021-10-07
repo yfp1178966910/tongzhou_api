@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.CourseDao">
+
+    <sql id="Base_Column_List">
+
+        `id`, `course_title`, `teacher`,`cover_url`, `course_start_date`, `course_end_date`,
+        `course_start_time`, `course_end_time`, `lesson_period`, `subject`, `student`,
+        `longitude`, `latitude`, `appendix_url`, `recommend`,`is_show`,`course_states`,
+        `max_sign_up`,`concur_sign_up`,`location`,`longitude`,`latitude`,`grade`,`weeks`,`course_create_time`,
+        `course_topic`,`course_type`,`class_room`
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="create" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        insert into course_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test=" id != null and  id !='' ">
+                `id` ,
+            </if>
+            <if test=" courseTitle != null and  courseTitle !='' ">
+                `course_title` ,
+            </if>
+            <if test=" teacher != null and  teacher !='' ">
+                `teacher` ,
+            </if>
+            <if test=" courseStartDate != null and  courseStartDate !='' ">
+                `course_start_date` ,
+            </if>
+            <if test=" courseEndDate != null and  courseEndDate !='' ">
+                `course_end_date` ,
+            </if>
+            <if test=" courseStartTime != null and  courseStartTime !='' ">
+                `course_start_time` ,
+            </if>
+            <if test=" courseEndTime != null and  courseEndTime !='' ">
+                `course_end_time` ,
+            </if>
+            <if test=" lessonPeriod != null and  lessonPeriod !='' ">
+                `lesson_period` ,
+            </if>
+            <if test=" subject != null and  subject !='' ">
+                `subject` ,
+            </if>
+            <if test=" student != null and  student !='' ">
+                `student` ,
+            </if>
+            <if test=" longitude != null and  longitude !='' ">
+                `longitude` ,
+            </if>
+            <if test=" latitude != null and  latitude !='' ">
+                `latitude` ,
+            </if>
+            <if test=" appendixUrl != null and  appendixUrl !='' ">
+                `appendix_url` ,
+            </if>
+            <if test=" recommend != null and  recommend !='' ">
+                `recommend` ,
+            </if>
+            <if test=" isShow != null and  isShow !='' ">
+                `is_show` ,
+            </if>
+            <if test=" courseStates != null and  courseStates !='' ">
+                `course_states` ,
+            </if>
+            <if test=" maxSignUp != null ">
+                `max_sign_up`,
+            </if>
+            <if test=" concurSignUp != null ">
+                `concur_sign_up`,
+            </if>
+            <if test=" coverUrl != null and  coverUrl !=''">
+                `cover_url`,
+            </if>
+            <if test=" location != null and  location !='' ">
+                `location` ,
+            </if>
+            <if test=" grade != null and  grade !='' ">
+                `grade` ,
+            </if>
+            <if test=" weeks != null and  weeks !='' ">
+                `weeks` ,
+            </if>
+            <if test=" courseCreateTime != null and  courseCreateTime !='' ">
+                `course_create_time` ,
+            </if>
+            <if test=" isDelete != null">
+                `is_delete`,
+            </if>
+            <if test=" courseTopic != null and  courseTopic !='' ">
+                `course_topic`,
+            </if>
+            <if test=" courseType != null and  courseType !='' ">
+                `course_type`,
+            </if>
+            <if test=" classRoom != null and  classRoom !='' ">
+                `class_room`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null and  id !='' ">
+                #{id},
+            </if>
+            <if test=" courseTitle != null and  courseTitle !='' ">
+                #{courseTitle},
+            </if>
+            <if test=" teacher != null and  teacher !='' ">
+                #{teacher},
+            </if>
+            <if test=" courseStartDate != null and  courseStartDate !='' ">
+                #{courseStartDate},
+            </if>
+            <if test=" courseEndDate != null and  courseEndDate !='' ">
+                #{courseEndDate},
+            </if>
+            <if test=" courseStartTime != null and  courseStartTime !='' ">
+                #{courseStartTime},
+            </if>
+            <if test=" courseEndTime != null and  courseEndTime !='' ">
+                #{courseEndTime},
+            </if>
+            <if test=" lessonPeriod != null and  lessonPeriod !='' ">
+                #{lessonPeriod},
+            </if>
+            <if test=" subject != null and  subject !='' ">
+                #{subject},
+            </if>
+            <if test=" student != null and  student !='' ">
+                #{student},
+            </if>
+            <if test=" longitude != null and  longitude !='' ">
+                #{longitude},
+            </if>
+            <if test=" latitude != null and  latitude !='' ">
+                #{latitude},
+            </if>
+            <if test=" appendixUrl != null and  appendixUrl !='' ">
+                #{appendixUrl},
+            </if>
+            <if test=" recommend != null and  recommend !='' ">
+                #{recommend},
+            </if>
+            <if test=" isShow != null and  isShow !='' ">
+                #{isShow},
+            </if>
+            <if test=" courseStates != null and  courseStates !='' ">
+                #{courseStates},
+            </if>
+            <if test=" maxSignUp != null ">
+                #{maxSignUp},
+            </if>
+            <if test=" concurSignUp != null ">
+                #{concurSignUp},
+            </if>
+            <if test=" coverUrl != null and  coverUrl !='' ">
+                #{coverUrl},
+            </if>
+            <if test=" location != null and  location !='' ">
+                #{location},
+            </if>
+            <if test=" grade != null and  grade !='' ">
+                #{grade},
+            </if>
+            <if test=" weeks != null and  weeks !='' ">
+                #{weeks},
+            </if>
+            <if test=" courseCreateTime != null and  courseCreateTime !='' ">
+                #{courseCreateTime},
+            </if>
+            <if test=" isDelete != null">
+                #{isDelete},
+            </if>
+
+            <if test=" courseTopic != null and  courseTopic !='' ">
+                #{courseTopic},
+            </if>
+            <if test=" courseType != null and  courseType !='' ">
+                #{courseType},
+            </if>
+            <if test=" classRoom != null and  classRoom !='' ">
+                #{classRoom},
+            </if>
+
+        </trim>
+    </insert>
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from course_info where id = #{id}
+    </delete>
+    <!-- 修改 -->
+    <update id="update" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        update course_info
+        <set>
+            <if test=" courseTitle != null and  courseTitle !='' ">
+                `course_title`= #{courseTitle} ,
+            </if>
+            <if test=" teacher != null and  teacher !='' ">
+                `teacher`= #{teacher} ,
+            </if>
+            <if test=" courseStartDate != null and  courseStartDate !='' ">
+                `course_start_date`= #{courseStartDate} ,
+            </if>
+            <if test=" courseEndDate != null and  courseEndDate !='' ">
+                `course_end_date`= #{courseEndDate} ,
+            </if>
+            <if test=" courseStartTime != null and  courseStartTime !='' ">
+                `course_start_time`= #{courseStartTime} ,
+            </if>
+            <if test=" courseEndTime != null and  courseEndTime !='' ">
+                `course_end_time`= #{courseEndTime} ,
+            </if>
+            <if test=" lessonPeriod != null and  lessonPeriod !='' ">
+                `lesson_period`= #{lessonPeriod} ,
+            </if>
+            <if test=" subject != null and  subject !='' ">
+                `subject`= #{subject} ,
+            </if>
+            <if test=" student != null and  student !='' ">
+                `student`= #{student} ,
+            </if>
+            <if test=" longitude != null and  longitude !='' ">
+                `longitude`= #{longitude} ,
+            </if>
+            <if test=" latitude != null and  latitude !='' ">
+                `latitude`= #{latitude} ,
+            </if>
+            <if test=" appendixUrl != null and  appendixUrl !='' ">
+                `appendix_url`= #{appendixUrl} ,
+            </if>
+            <if test=" recommend != null and  recommend !='' ">
+                `recommend`= #{recommend} ,
+            </if>
+            <if test=" isShow != null and  isShow !='' ">
+                `is_show`=#{isShow},
+            </if>
+            <if test=" courseStates != null and  courseStates !='' ">
+                `course_states`=#{courseStates},
+            </if>
+            <if test=" maxSignUp != null ">
+                `max_sign_up`=#{maxSignUp},
+            </if>
+            <if test=" concurSignUp != null ">
+                `concur_sign_up`=#{concurSignUp},
+            </if>
+            <if test=" coverUrl != null and  coverUrl !='' ">
+                `cover_url`=#{coverUrl},
+            </if>
+            <if test=" location != null and  location !='' ">
+                `location`=#{location},
+            </if>
+            <if test=" grade != null and  grade !='' ">
+                `grade`=#{grade},
+            </if>
+            <if test=" weeks != null and  weeks !='' ">
+                `weeks`=#{weeks},
+            </if>
+            <if test=" isDelete != null">
+                `is_delete`=#{isDelete},
+            </if>
+            <if test=" courseTopic != null and  courseTopic !='' ">
+                `course_topic`= #{courseTopic},
+            </if>
+            <if test=" courseType != null and  courseType !='' ">
+                `course_type`= #{courseType},
+            </if>
+            <if test=" classRoom != null and  classRoom !='' ">
+                `class_room`= #{classRoom},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 主键查询 -->
+    <select id="findById" resultType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from course_info
+        where id = #{id}
+    </select>
+    <!-- 查询 -->
+    <select id="findByListDto" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from course_info
+        where 1=1
+        <if test="id != null and id !=''">
+            and id = #{id}
+        </if>
+        <if test="courseTitle!= null and courseTitle!=''">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" isShow != null and  isShow !='' ">
+            and `is_show`=#{isShow}
+        </if>
+        <if test=" courseStates != null and  courseStates !='' ">
+            and `course_states`=#{courseStates}
+        </if>
+        <if test=" courseTopic != null and  courseTopic !='' ">
+            and`course_topic`= #{courseTopic}
+        </if>
+        <if test=" courseType != null and  courseType !='' ">
+            and`course_type`= #{courseType}
+        </if>
+        <if test=" classRoom != null and  classRoom !='' ">
+            and`class_room`= #{classRoom}
+        </if>
+        <if test=" grade != null and  grade !='' ">
+            and
+            <foreach item="item" index="index" collection="grade.split(',')"
+                     open="(" separator="or" close=")">
+                `grade` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+
+        <if test=" subject != null and  subject !='' ">
+            and
+            <foreach item="item" index="index" collection="subject.split(',')"
+                     open="(" separator="or" close=")">
+                `subject` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        and `is_delete`= 0
+
+    </select>
+    <!-- 分页查询 -->
+    <select id="findPgList" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from course_info
+        where 1=1 and `is_delete`= 0
+        <if test="id != null and id !=''">
+            and id = #{id}
+        </if>
+        <if test="courseTitle!= null and courseTitle!=''">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" isShow != null and  isShow !='' ">
+            and `is_show`=#{isShow}
+        </if>
+        <if test=" courseStates != null and  courseStates !='' ">
+            and `course_states`=#{courseStates}
+        </if>
+        <if test=" courseTopic != null and  courseTopic !='' ">
+            and`course_topic`= #{courseTopic}
+        </if>
+        <if test=" courseType != null and  courseType !='' ">
+            and`course_type`= #{courseType}
+        </if>
+        <if test=" classRoom != null and  classRoom !='' ">
+            and`class_room`= #{classRoom}
+        </if>
+        <if test=" grade != null and  grade !='' ">
+            and
+            <foreach item="item" index="index" collection="grade.split(',')"
+                     open="(" separator="or" close=")">
+                `grade` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        <if test=" subject != null and  subject !='' ">
+            and
+            <foreach item="item" index="index" collection="subject.split(',')"
+                     open="(" separator="or" close=")">
+                `subject` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        <if test=" sortField != null and sortField != ''">
+            order by ${sortField} ${sortOrder}
+        </if>
+        limit #{offset},#{limit}
+    </select>
+    <!-- 分页查询条数 -->
+    <select id="findPgCount" resultType="java.lang.Integer"
+            parameterType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select count(1) from course_info a where 1=1
+        <if test="id != null and id !=''">
+            and id = #{id}
+        </if>
+        <if test="courseTitle!= null and courseTitle!=''">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" isShow != null and  isShow !='' ">
+            and `is_show`=#{isShow}
+        </if>
+        <if test=" courseStates != null and  courseStates !='' ">
+            and `course_states`=#{courseStates}
+        </if>
+        <if test=" courseTopic != null and  courseTopic !='' ">
+            and`course_topic`= #{courseTopic}
+        </if>
+        <if test=" courseType != null and  courseType !='' ">
+            and`course_type`= #{courseType}
+        </if>
+        <if test=" classRoom != null and  classRoom !='' ">
+            and`class_room`= #{classRoom}
+        </if>
+        <if test=" grade != null and  grade !='' ">
+            and
+            <foreach item="item" index="index" collection="grade.split(',')"
+                     open="(" separator="or" close=")">
+                `grade` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        <if test=" subject != null and  subject !='' ">
+            and
+            <foreach item="item" index="index" collection="subject.split(',')"
+                     open="(" separator="or" close=")">
+                `subject` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        and `is_delete`= 0
+    </select>
+    <!-- 按照创建时间排序 -->
+    <select id="orderByCreateTime" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from course_info
+        where 1=1
+        <if test="id != null and id !=''">
+            and id = #{id}
+        </if>
+        <if test="courseTitle!= null and courseTitle!=''">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" isShow != null and  isShow !='' ">
+            and `is_show`=#{isShow}
+        </if>
+        <if test=" courseStates != null and  courseStates !='' ">
+            and `course_states`=#{courseStates}
+        </if>
+        <if test=" courseTopic != null and  courseTopic !='' ">
+            and`course_topic`= #{courseTopic}
+        </if>
+        <if test=" courseType != null and  courseType !='' ">
+            and`course_type`= #{courseType}
+        </if>
+        <if test=" classRoom != null and  classRoom !='' ">
+            and`class_room`= #{classRoom}
+        </if>
+        <if test=" grade != null and  grade !='' ">
+            and
+            <foreach item="item" index="index" collection="grade.split(',')"
+                     open="(" separator="or" close=")">
+                `grade` like concat ('%',#{item},'%')
+                <!-- find_in_set(('%',#{item},'%'),`grade`)-->
+            </foreach>
+        </if>
+        <if test=" subject != null and  subject !='' ">
+            and `subject`= #{subject}
+        </if>
+        and `is_delete`= 0
+        order by `course_create_time` DESC
+    </select>
+    <!-- 按照老师课程数量 -->
+    <select id="orderByTeacher" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="java.util.Map">
+        SELECT `teacher`,count(1) as count FROM course_info WHERE is_delete = 0 GROUP BY `teacher`ORDER BY count DESC;
+    </select>
+    <!-- 按照报名热度 -->
+    <select id="orderByHot" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from course_info
+        where 1=1
+        <if test="id != null and id !=''">
+            and id = #{id}
+        </if>
+        <if test="courseTitle!= null and courseTitle!=''">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" isShow != null and  isShow !='' ">
+            and `is_show`=#{isShow}
+        </if>
+        <if test=" courseStates != null and  courseStates !='' ">
+            and `course_states`=#{courseStates}
+        </if>
+        <if test=" courseTopic != null and  courseTopic !='' ">
+            and`course_topic`= #{courseTopic}
+        </if>
+        <if test=" courseType != null and  courseType !='' ">
+            and`course_type`= #{courseType}
+        </if>
+        <if test=" classRoom != null and  classRoom !='' ">
+            and`class_room`= #{classRoom}
+        </if>
+        <if test=" grade != null and  grade !='' ">
+            and
+            <foreach item="item" index="index" collection="grade.split(',')"
+                     open="(" separator="or" close=")">
+<!--                `grade` like concat ('%',#{item},'%')-->
+                 find_in_set(('%',#{item},'%'),`grade`)
+            </foreach>
+        </if>
+        <if test=" subject != null and  subject !='' ">
+            and `subject`= #{subject}
+        </if>
+        and `is_delete`= 0
+        order by `concur_sign_up` DESC
+    </select>
+
+    <!--  -->
+    <select id="selectCourseByTimeAndClassRoom" parameterType="com.combanc.cas.client.springboot.entity.CourseEntity"
+            resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `course_info`
+        where course_start_date &lt;= #{courseEndDate}
+        and course_end_date &gt;= #{courseStartDate}
+        and course_start_time &lt;= #{courseEndTime}
+        and course_end_time &gt;= #{courseStartTime}
+        <if test=" classRoom != null and  classRoom !='' ">
+            and class_room=#{classRoom}
+        </if>
+
+    </select>
+
+
+</mapper>

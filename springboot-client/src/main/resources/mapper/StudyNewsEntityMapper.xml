@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.StudyNewsEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="brief_introduction" property="briefIntroduction" jdbcType="VARCHAR" />
+    <result column="back_pic" property="backPic" jdbcType="VARCHAR" />
+    <result column="display_location" property="displayLocation" jdbcType="VARCHAR" />
+    <result column="news_weight" property="newsWeight" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="reading_volume" property="readingVolume" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.combanc.cas.client.springboot.entity.StudyNewsEntity" extends="BaseResultMap" >
+    <result column="news_content" property="newsContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, news_title, brief_introduction, back_pic, display_location, news_weight, create_time, 
+    reading_volume, user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    news_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from study_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from study_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null and offset != null">
+      limit #{offset},#{limit}
+    </if>
+  </select>
+  <!-- 分页查询条数 -->
+  <select id="selectByPgExampleCount" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntityExample">
+    select count(1) from study_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from study_news
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from study_news
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    insert into study_news (id, news_title, brief_introduction, 
+      back_pic, display_location, news_weight, 
+      create_time, reading_volume, user_id, 
+      news_content)
+    values (#{id,jdbcType=VARCHAR}, #{newsTitle,jdbcType=VARCHAR}, #{briefIntroduction,jdbcType=VARCHAR}, 
+      #{backPic,jdbcType=VARCHAR}, #{displayLocation,jdbcType=VARCHAR}, #{newsWeight,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=VARCHAR}, #{readingVolume,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{newsContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    insert into study_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="newsTitle != null" >
+        news_title,
+      </if>
+      <if test="briefIntroduction != null" >
+        brief_introduction,
+      </if>
+      <if test="backPic != null" >
+        back_pic,
+      </if>
+      <if test="displayLocation != null" >
+        display_location,
+      </if>
+      <if test="newsWeight != null" >
+        news_weight,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="readingVolume != null" >
+        reading_volume,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="newsContent != null" >
+        news_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTitle != null" >
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null" >
+        #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="backPic != null" >
+        #{backPic,jdbcType=VARCHAR},
+      </if>
+      <if test="displayLocation != null" >
+        #{displayLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="newsWeight != null" >
+        #{newsWeight,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null" >
+        #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntityExample" resultType="java.lang.Integer" >
+    select count(*) from study_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    update study_news
+    <set >
+      <if test="newsTitle != null" >
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null" >
+        brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="backPic != null" >
+        back_pic = #{backPic,jdbcType=VARCHAR},
+      </if>
+      <if test="displayLocation != null" >
+        display_location = #{displayLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="newsWeight != null" >
+        news_weight = #{newsWeight,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null" >
+        reading_volume = #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        news_content = #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    update study_news
+    set news_title = #{newsTitle,jdbcType=VARCHAR},
+      brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      back_pic = #{backPic,jdbcType=VARCHAR},
+      display_location = #{displayLocation,jdbcType=VARCHAR},
+      news_weight = #{newsWeight,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      reading_volume = #{readingVolume,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.combanc.cas.client.springboot.entity.StudyNewsEntity" >
+    update study_news
+    set news_title = #{newsTitle,jdbcType=VARCHAR},
+      brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      back_pic = #{backPic,jdbcType=VARCHAR},
+      display_location = #{displayLocation,jdbcType=VARCHAR},
+      news_weight = #{newsWeight,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      reading_volume = #{readingVolume,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

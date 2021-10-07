@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.WebMessageEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="message_title" property="messageTitle" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="department_part" property="departmentPart" jdbcType="VARCHAR" />
+    <result column="reading_volume" property="readingVolume" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="is_float" property="isFloat" jdbcType="VARCHAR" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="files_url" property="filesUrl" jdbcType="VARCHAR" />
+    <result column="was_read" property="wasRead" jdbcType="INTEGER" />
+    <result column="read_user" property="readUser" jdbcType="VARCHAR" />
+    <result column="delete_user" property="deleteUser" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, message_title, department, department_part, reading_volume, create_time, is_float, 
+    message_content, files_url, user_id, was_read, read_user, delete_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,read_user
+    from web_message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from web_message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    insert into web_message (id, message_title, department, 
+      department_part, reading_volume, create_time, 
+      is_float, message_content, files_url, 
+      user_id, was_read, read_user, delete_user)
+    values (#{id,jdbcType=VARCHAR}, #{messageTitle,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{departmentPart,jdbcType=VARCHAR}, #{readingVolume,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, 
+      #{isFloat,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR}, #{filesUrl,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{wasRead, jdbcType=INTEGER}, #{readUser, jdbcType=VARCHAR}, #{deleteUser, jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    insert into web_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="messageTitle != null" >
+        message_title,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="departmentPart != null" >
+        department_part,
+      </if>
+      <if test="readingVolume != null" >
+        reading_volume,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isFloat != null" >
+        is_float,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+      <if test="filesUrl != null" >
+        files_url,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="readUser != null" >
+        read_user,
+      </if>
+      <if test="deleteUser != null" >
+        delete_user,
+      </if>
+      <if test="wasRead != null" >
+        was_read,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTitle != null" >
+        #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentPart != null" >
+        #{departmentPart,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null" >
+        #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isFloat != null" >
+        #{isFloat,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="filesUrl != null" >
+        #{filesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="readUser != null" >
+        #{readUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteUser != null" >
+        #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="wasRead != null" >
+        #{wasRead,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    update web_message
+    <set >
+      <if test="messageTitle != null" >
+        message_title = #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentPart != null" >
+        department_part = #{departmentPart,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null" >
+        reading_volume = #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isFloat != null" >
+        is_float = #{isFloat,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        message_content = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="filesUrl != null" >
+        files_url = #{filesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="readUser != null" >
+        read_user = #{readUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteUser != null" >
+        delete_user= #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="wasRead != null" >
+        was_read= #{wasRead,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    update web_message
+    set message_title = #{messageTitle,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      department_part = #{departmentPart,jdbcType=VARCHAR},
+      reading_volume = #{readingVolume,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      is_float = #{isFloat,jdbcType=VARCHAR},
+      message_content = #{messageContent,jdbcType=VARCHAR},
+      files_url = #{filesUrl,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      read_user = #{readUser,jdbcType=VARCHAR},
+      delete_user = #{deleteUser,jdbcType=VARCHAR},
+      was_read = #{wasRead, jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!-- 分页查询 -->
+  <select id="selectByPgExample" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{offset},#{limit}
+  </select>
+  <!-- 分页查询条数 -->
+  <select id="selectByPgExampleCount" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntityExample">
+    select count(1) from web_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!-- 获取读取状态 -->
+  <select id="getStates" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity">
+    SELECT count(1) FROM `web_message`
+    WHERE id = #{id}
+    and web_message.read_user like concat('%',#{userId},'%')
+  </select>
+
+  <!-- 分页查询自己的网络发信 -->
+  <select id="getMessages" resultMap="BaseResultMap" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity">
+    select
+    <include refid="Base_Column_List" />
+    ,if(web_message.read_user like concat('%',#{userId},'%'),1,0) as wasRead   FROM `web_message` WHERE web_message.delete_user not like concat('%',#{userId},'%')
+
+      order by create_time Desc
+    limit #{offset},#{limit}
+  </select>
+
+  <!-- 分页查询多少个自己的网络发信 -->
+  <select id="getMessagesCount" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity">
+    SELECT count(1) FROM `web_message`
+    WHERE web_message.delete_user not like concat('%',#{userId},'%')
+  </select>
+
+<!-- 全部改为已读 -->
+  <update id="changeAllMessages" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
+    update web_message
+    set read_user =  CONCAT(#{userId},',',read_user)
+    where read_user not  like CONCAT('%',#{userId},"%")
+  </update>
+
+</mapper>

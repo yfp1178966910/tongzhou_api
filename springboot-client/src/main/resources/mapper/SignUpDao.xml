@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.SignUpDao">
+
+    <sql id="Base_Column_List">
+        s.`id`,  `course_id`,  `user_id`,`score_a`,  `score_b`,  `score_c`,
+        `score_d`,`score_e`,`sign_up_type`, `score_sum`,`course_start_time`,`course_end_time`,`course_title`,
+        `concur_sign_up`,`location`,`true_name`,`school_name`,u.`user_type`,`course_states`,
+        c.`longitude`,c.`latitude`,`suggestion`,`year`,`get_sum`
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="create" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        insert into sign_up
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test=" id != null and  id !='' ">
+                `id` ,
+            </if>
+            <if test=" courseId != null and  courseId !='' ">
+                `course_id` ,
+            </if>
+            <if test=" userId != null and  userId !='' ">
+                `user_id` ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null and  id !='' ">
+                #{id},
+            </if>
+            <if test=" courseId != null and  courseId !='' ">
+                #{courseId} ,
+            </if>
+            <if test=" userId != null and  userId !='' ">
+                #{userId} ,
+            </if>
+        </trim>
+    </insert>
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from sign_up where id = #{id}
+    </delete>
+    <!-- 删除 -->
+    <delete id="deleteByCourseId" parameterType="java.lang.String">
+        delete from sign_up where course_id = #{courseId}
+    </delete>
+    <!-- 修改 -->
+    <update id="update" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        update sign_up
+        <set>
+            <if test=" signUpType != null ">
+                `sign_up_type`= #{signUpType} ,
+            </if>
+            <if test=" scoreA != null ">
+                `score_a`= #{scoreA} ,
+            </if>
+            <if test=" scoreB != null ">
+                `score_b`= #{scoreB} ,
+            </if>
+            <if test=" scoreC != null ">
+                `score_c`= #{scoreC} ,
+            </if>
+            <if test=" scoreD != null ">
+                `score_d`= #{scoreD} ,
+            </if>
+            <if test=" scoreE != null ">
+                `score_e`= #{scoreE} ,
+            </if>
+            <if test=" scoreSum != null ">
+                `score_sum`= #{scoreSum} ,
+            </if>
+            <if test=" suggestion != null ">
+                `suggestion`= #{suggestion} ,
+            </if>
+
+            <if test=" year != null ">
+                `year`= #{year} ,
+            </if>
+            <if test=" getSum != null ">
+                `get_sum`= #{getSum} ,
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 主键查询 -->
+    <select id="findById" resultType="com.combanc.cas.client.springboot.entity.SignUpEntity" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_up s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where  s.`id` = #{id}
+    </select>
+    <!-- 查询 -->
+    <select id="findByListDto" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_up s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" year != null and year !='' ">
+           and  `year`= #{year}
+        </if>
+
+    </select>
+    <!-- 分页查询 -->
+    <select id="findPgList" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_up s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" year != null and year !='' ">
+            and  `year`= #{year}
+        </if>
+        limit #{offset},#{limit}
+    </select>
+    <!-- 分页查询条数 -->
+    <select id="findPgCount" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        select count(1) from sign_up a where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" year != null and year !='' ">
+            and  `year`= #{year}
+        </if>
+    </select>
+
+    <!-- 分页查询条数 -->
+    <select id="findPgCountByGroup" resultType="java.lang.Integer" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity">
+        select COUNT(DISTINCT course_id ) as num
+        from sign_up s
+        left join course_info c on c.`id`=s.`course_id`
+        where c.`course_states` = 2
+    </select>
+    <!-- 分页查询 -->
+    <select id="findPgListByGroup" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="java.util.Map">
+        select
+        s.`id`,  `course_id` as courseId,
+        sum(case when `sign_up_type` = 0 then 1 else 0 end) signUpType0,
+        sum(case when `sign_up_type` = 1 then 1 else 0 end) signUpType1,
+        CAST(AVG(`score_a`)as UNSIGNED) as scoreA,
+        CAST(AVG(`score_b`)as UNSIGNED) as scoreB,
+        CAST(AVG(`score_c`)as UNSIGNED) as scoreC,
+        CAST(AVG(`score_d`)as UNSIGNED) as scoreD,
+        CAST(AVG(`score_e`)as UNSIGNED) as scoreE,
+        CAST(AVG(`score_sum`)as UNSIGNED) as score_sum,
+        `course_start_date` as courseStartDate,
+        `course_end_date` as courseEndDate,
+        `course_start_time` as courseStartTime,
+        `course_end_time` as courseEndTime,
+        `course_title` as courseTitle,
+        `concur_sign_up` as concurSignUp,
+        `location`,
+        `course_states` as courseStates,
+        `teacher`,
+        `appendix_url` as appendixUrl,
+        `recommend`,
+        `lesson_period`
+        from sign_up s
+        left join course_info c on c.`id`=s.`course_id`
+        where `course_states` = 2
+        group by `course_id`
+        
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="selectGetSumByYearByUser" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="java.util.Map">
+        select u.`true_name`as trueName,u.`school_name` as schoolName,u.`subject`,u.`grade`,u.`phone`,u.`id`,g.getSum
+
+        from user_info u
+        left join (select
+        `user_id`,
+        sum(`get_sum`) as getSum
+        from sign_up s
+        where 1= 1
+        <if test=" year != null and year !='' ">
+            and `year`= #{year}
+        </if>
+        group by `user_id`) g on u.`id` = g.`user_id`
+        limit #{offset},#{limit}
+    </select>
+
+
+    <select id="selectCourseByYearAndUser" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="java.util.Map">
+        select c.`course_title` as courseTitle,
+        g.`course_id` as courseId
+
+        from
+        (
+        select s.`course_id` from sign_up s where 1= 1
+        <if test=" year != null and year !='' ">
+            and `year`= #{year}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        group by `course_id`
+        ) g
+        left join course_info c on g.`course_id`=c.`id`
+
+    </select>
+    <select id="selectCourseByUserAndCourseTime" parameterType="com.combanc.cas.client.springboot.entity.SignUpEntity" resultType="com.combanc.cas.client.springboot.entity.CourseEntity">
+        select *
+        from sign_up g
+        left join course_info c on g.`course_id`=c.`id`
+        where g.user_id=#{userId}
+        and c.course_start_date  &lt;= (select course_end_date from course_info c where id =#{courseId})
+        and c.course_end_date &gt;= (select course_start_date from course_info c where id =#{courseId})
+        and c.course_start_time  &lt;= (select course_end_time from course_info c where id =#{courseId})
+        and c.course_end_time &gt;= (select course_start_time from course_info c where id =#{courseId})
+
+
+    </select>
+
+</mapper>

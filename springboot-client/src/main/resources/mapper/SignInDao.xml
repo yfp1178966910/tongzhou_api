@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.combanc.cas.client.springboot.dao.SignInDao">
+
+    <sql id="Base_Column_List">
+        s.`id`,s.`sign_up_id`,s.`course_id`,s.`user_id`,s.`date`,s.`in_time`,s.`out_time`,
+        s.`in_states`,s.`out_states`,s.`in_remark`,s.`out_remark`,u.`true_name`,c.`course_title`,
+        s.`in_check_states`,s.`out_check_states`,`sign_in_score`
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="create" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        insert into sign_in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null and id !='' ">
+                `id`,
+            </if>
+
+            <if test="signUpId !=null and signUpId !='' ">
+                `sign_up_id`,
+            </if>
+
+            <if test="courseId !=null and courseId !='' ">
+                `course_id`,
+            </if>
+
+            <if test="userId !=null and userId !='' ">
+                `user_id`,
+            </if>
+
+            <if test="date !=null and date !='' ">
+                `date`,
+            </if>
+
+            <if test="inTime !=null and inTime !='' ">
+                `in_time`,
+            </if>
+
+            <if test="outTime !=null and outTime !='' ">
+                `out_time`,
+
+            </if>
+
+            <if test="inStates !=null and inStates !='' ">
+                `in_states`,
+            </if>
+
+            <if test="outStates !=null and outStates !='' ">
+                `out_states`,
+            </if>
+
+            <if test="inRemark !=null and inRemark !='' ">
+                `in_remark`,
+            </if>
+
+            <if test="outRemark !=null and outRemark !='' ">
+                `out_remark`,
+            </if>
+            <if test="signInScore !=null ">
+                `sign_in_score`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="id !=null and id !='' ">
+                #{id},
+            </if>
+
+            <if test="signUpId !=null and signUpId !='' ">
+                #{signUpId},
+            </if>
+
+            <if test="courseId !=null and courseId !='' ">
+                #{courseId},
+            </if>
+
+            <if test="userId !=null and userId !='' ">
+                #{userId},
+            </if>
+
+            <if test="date !=null and date !='' ">
+                #{date},
+            </if>
+
+            <if test="inTime !=null and inTime !='' ">
+                #{inTime},
+            </if>
+
+            <if test="outTime !=null and outTime !='' ">
+                #{outTime},
+
+            </if>
+
+            <if test="inStates !=null and inStates !='' ">
+                #{inStates},
+            </if>
+
+            <if test="outStates !=null and outStates !='' ">
+                #{outStates},
+            </if>
+
+            <if test="inRemark !=null and inRemark !='' ">
+                #{inRemark},
+            </if>
+
+            <if test="outRemark !=null and outRemark !='' ">
+                #{outRemark},
+            </if>
+            <if test="signInScore !=null ">
+                #{signInScore},
+            </if>
+        </trim>
+    </insert>
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from sign_in where id = #{id}
+    </delete>
+    <!-- 删除 -->
+    <delete id="deleteByCourseId" parameterType="java.lang.String">
+        delete from sign_in where course_id = #{courseId}
+    </delete>
+    <!-- 删除 -->
+    <delete id="deleteBySignUpId" parameterType="java.lang.String">
+        delete from sign_in where sign_up_id = #{signUpId}
+    </delete>
+    <!-- 修改 -->
+    <update id="update" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        update sign_in
+        <set>
+            <if test="signUpId !=null and signUpId !='' ">
+                `sign_up_id`=#{signUpId},
+            </if>
+
+            <if test="courseId !=null and courseId !='' ">
+                `course_id`=#{courseId},
+            </if>
+
+            <if test="userId !=null and userId !='' ">
+                `user_id`=#{userId},
+            </if>
+
+            <if test="date !=null and date !='' ">
+                `date`=#{date},
+            </if>
+
+            <if test="inTime !=null and inTime !='' ">
+                `in_time`=#{inTime},
+            </if>
+
+            <if test="outTime !=null and outTime !='' ">
+                `out_time`=#{outTime},
+
+            </if>
+
+            <if test="inStates !=null and inStates !='' ">
+                `in_states`=#{inStates},
+            </if>
+
+            <if test="outStates !=null and outStates !='' ">
+                `out_states`=#{outStates},
+            </if>
+
+            <if test="inRemark !=null and inRemark !='' ">
+                `in_remark`=#{inRemark},
+            </if>
+
+            <if test="outRemark !=null and outRemark !='' ">
+                `out_remark`=#{outRemark},
+            </if>
+            <if test="inCheckStates !=null and inCheckStates !='' ">
+                `in_check_states`=#{inCheckStates},
+            </if>
+
+            <if test="outCheckStates !=null and outCheckStates !='' ">
+                `out_check_states`=#{outCheckStates},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 主键查询 -->
+    <select id="findById" resultType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where s.`id` = #{id}
+    </select>
+    <!-- 查询 -->
+    <select id="findByListDto" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            resultType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        order by date asc
+    </select>
+    <!-- 分页查询 -->
+    <select id="findPgList" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            resultType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select
+        s.`id`,s.`sign_up_id`,s.`course_id`,s.`user_id`,s.`date`,s.`in_time`,s.`out_time`,
+        s.`in_states`,s.`out_states`,s.`in_remark`,s.`out_remark`,u.`true_name`,c.`course_title`,
+        s.`in_check_states`,s.`out_check_states`
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        group by s.`sign_up_id`
+        limit #{offset},#{limit}
+    </select>
+    <!-- 分页查询条数 -->
+    <select id="findPgCount" resultType="java.lang.Integer"
+            parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select count(1)
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+    </select>
+    <!-- 分页查询 -->
+    <select id="findStatisticalData" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            resultType="java.util.Map">
+        select
+        u.true_name as trueName,
+        count(in_states=0 or null) IN_STATES_UNDO,
+        count(in_states=1 or null) IN_STATES_NORMAL,
+        count(in_states=2 or null) IN_STATES_LATE,
+        count(out_states=0 or null) OUT_STATES_UNDO,
+        count(out_states=1 or null) OUT_STATES_NORMAL,
+        count(out_states=2 or null) OUT_STATES_EARLY,
+        `sign_up_id` as signUpId
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        group by `sign_up_id`
+        limit #{offset},#{limit}
+    </select>
+    <!-- 分页查询条数 -->
+    <select id="findStatisticalDataCount" resultType="java.lang.Integer"
+            parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select count(DISTINCT sign_up_id)
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+    </select>
+
+
+    <select id="findStatisticalDataForExcel" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            resultType="java.util.Map">
+        select
+        u.true_name as trueName,
+        count(in_states=0 or null) IN_STATES_UNDO,count(in_states=1 or null) IN_STATES_NORMAL ,count(in_states=2 or null) IN_STATES_LATE,
+        count(out_states=0 or null) OUT_STATES_UNDO,count(out_states=1 or null) OUT_STATES_NORMAL,count(out_states=2 or null)OUT_STATES_EARLY,
+        `sign_up_id` as signUpId
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where 1=1
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        group by `sign_up_id`
+    </select>
+<!--    &lt;!&ndash; 分页查询条数 &ndash;&gt;-->
+<!--    <select id="findPgCountByGroup" resultType="java.lang.Integer"-->
+<!--            parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">-->
+<!--        select COUNT(DISTINCT course_id ) as num-->
+<!--        from sign_in a;-->
+<!--    </select>-->
+<!--    &lt;!&ndash; 分页查询 &ndash;&gt;-->
+<!--    <select id="findPgListByGroup" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"-->
+<!--            resultType="java.util.Map">-->
+<!--        select-->
+<!--        s.`id`, `course_id`,-->
+<!--        CAST(AVG(`score_a`)as SIGNED) as score_a,-->
+<!--        CAST(AVG(`score_b`)as SIGNED) as score_b,-->
+<!--        CAST(AVG(`score_c`)as SIGNED) as score_c,-->
+<!--        CAST(AVG(`score_d`)as SIGNED) as score_d,-->
+<!--        CAST(AVG(`score_sum`)as SIGNED) as score_sum-->
+<!--        ,`course_start_time`,`course_end_time`,`course_title`,-->
+<!--        `concur_sign_in`,`location`,`course_states`-->
+<!--        from sign_in s-->
+<!--        left join course_info c on c.`id`=s.`course_id`-->
+<!--        group by `course_id`-->
+
+<!--        limit #{offset},#{limit}-->
+<!--    </select>-->
+
+    <!-- 分页查询 -->
+    <select id="findCheckData" parameterType="com.combanc.cas.client.springboot.entity.SignInEntity"
+            resultType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where (`in_check_states` !=0 or  null or `out_check_states`!=0 or  null)
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        <if test=" inCheckStates != null and  inCheckStates !='' ">
+            and (`in_check_states`=#{inCheckStates} or `out_check_states`=#{inCheckStates})
+        </if>
+        limit #{offset},#{limit}
+    </select>
+    <!-- 分页查询条数 -->
+    <select id="findCheckDataCount" resultType="java.lang.Integer"
+            parameterType="com.combanc.cas.client.springboot.entity.SignInEntity">
+        select count(1)
+        from sign_in s
+        left join user_info u on u.`id`=s.`user_id`
+        left join course_info c on c.`id`=s.`course_id`
+        where (`in_check_states` !=0 or  null or `out_check_states`!=0 or  null)
+        <if test=" courseId != null and  courseId !='' ">
+            and `course_id`= #{courseId}
+        </if>
+        <if test=" userId != null and  userId !='' ">
+            and `user_id`=#{userId}
+        </if>
+        <if test=" signUpId != null and  signUpId !='' ">
+            and `sign_up_id`=#{signUpId}
+        </if>
+        <if test=" date != null and  date !='' ">
+            and `date`=#{date}
+        </if>
+        <if test=" courseTitle != null and  courseTitle !='' ">
+            and `course_title` like concat('%',#{courseTitle},'%')
+        </if>
+        <if test=" trueName != null and  trueName !='' ">
+            and `true_name` like concat('%',#{trueName},'%')
+        </if>
+        <if test=" inCheckStates != null and  inCheckStates !='' ">
+            and (`in_check_states`=#{inCheckStates} or `out_check_states`=#{inCheckStates})
+        </if>
+    </select>
+
+    <update id="commitSignInScore" >
+<!--        parameterType="java.lang.String,java.math.BigDecimal">-->
+        update sign_in
+        <set>
+                `sign_in_score`=#{unitScore},
+        </set>
+        where `course_id` = #{id} and (`in_states`= "1" or `in_states`= "2" or `in_check_states`=4) and(`out_states` ="1" or `out_check_states` ="4")
+    </update>
+
+
+</mapper>
