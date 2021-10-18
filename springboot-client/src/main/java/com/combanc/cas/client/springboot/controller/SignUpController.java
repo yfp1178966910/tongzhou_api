@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/signUp")
+@RequestMapping(path = {"/signUp", "/applets/signUp"})
 public class SignUpController {
 
     @Autowired

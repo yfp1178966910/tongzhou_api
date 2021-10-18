@@ -7,6 +7,8 @@ import com.combanc.cas.client.springboot.utils.PageBean;
 public interface WebMessageService  extends BaseService<WebMessageEntity>{
     int deleteById(String id);
 
+    void updateAllReadByUserId(String userId);
+
     int getStates(WebMessageEntity data);
 
     Result changeStates(WebMessageEntity data);

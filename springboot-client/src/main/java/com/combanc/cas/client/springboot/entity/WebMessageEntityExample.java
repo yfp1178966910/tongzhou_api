@@ -765,7 +765,7 @@ public class WebMessageEntityExample {
         }
 
         public Criteria andUserIdContains(String value) {
-            addCriterion("delete_user like", value, "userId");
+            addCriterion("delete_user is null or delete_user not like", "%" + value + "%", "delete_user");
             return (Criteria) this;
         }
 

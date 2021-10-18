@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/centerIntroduce")
+@RequestMapping(path = {"/centerIntroduce", "/applets/centerIntroduce"})
 public class CenterIntroduceController {
     @Autowired
     private CenterIntroduceService centerIntroduceService;

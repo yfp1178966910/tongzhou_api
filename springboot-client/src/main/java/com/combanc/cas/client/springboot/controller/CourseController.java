@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping(path = {"/course", "/applets/course"})
 public class CourseController {
     private static Logger logger = LoggerFactory.getLogger(CourseController.class);
     @Autowired

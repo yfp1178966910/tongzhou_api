@@ -58,6 +58,11 @@ public class WebMessageServiceImpl implements WebMessageService {
     public int deleteById(String id) {return webMessageEntityMapper.deleteByPrimaryKey(id);}
 
     @Override
+    public void updateAllReadByUserId(String userId) {
+        webMessageEntityMapper.updateAllReadByUserId(userId);
+    }
+
+    @Override
     public Result findByList(WebMessageEntity dto) {
         WebMessageEntityExample webMessageEntityExample = new WebMessageEntityExample();
         WebMessageEntityExample.Criteria criteria = webMessageEntityExample.createCriteria();
@@ -103,6 +108,9 @@ public class WebMessageServiceImpl implements WebMessageService {
         if(!StringUtils.isEmpty(dto.getUserId())){
             criteria.andUserIdEqualTo(dto.getUserId());
             criteria.andUserIdContains(dto.getUserId());
+        }
+        if(!StringUtils.isEmpty(dto.getIsFloat())){
+            criteria.andIsFloatEqualTo(dto.getIsFloat());
         }
         webMessageEntityExample.setOrderByClause("create_time DESC");
         int count = webMessageEntityMapper.selectByPgExampleCount(webMessageEntityExample);

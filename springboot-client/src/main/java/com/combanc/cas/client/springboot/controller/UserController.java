@@ -25,7 +25,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping(path = {"/user", "/applets/user"})
 public class UserController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired

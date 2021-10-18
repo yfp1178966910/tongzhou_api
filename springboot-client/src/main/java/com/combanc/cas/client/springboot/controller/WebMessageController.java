@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("/webMessage")
+@RequestMapping(path = {"/webMessage", "/applets/webMessage"})
 public class WebMessageController {
     @Autowired
     private WebMessageService webMessageService;
@@ -48,8 +48,19 @@ public class WebMessageController {
         }
         data.setAction(ActionEnum.update.getCode());
         return webMessageService.save(data);
-
     }
+
+    @ResponseBody
+    @RequestMapping(value = "update-read", method = RequestMethod.POST)
+    public Result updateRead(WebMessageEntity data, HttpServletRequest request, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");//设置跨域允许
+        if (StringUtils.isEmpty(data.getUserId())) {
+            return Result.failed("userId is blank!");
+        }
+        webMessageService.updateAllReadByUserId(data.getUserId());
+        return Result.success();
+    }
+
     @ResponseBody
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public Result delete(WebMessageEntity data, HttpServletRequest request, HttpServletResponse response){
@@ -60,9 +71,7 @@ public class WebMessageController {
             }
         data.setAction(ActionEnum.delete.getCode());
         return webMessageService.save(data);
-
     }
-
 
     @ResponseBody
     @RequestMapping(value = "deleteById", method = RequestMethod.POST)

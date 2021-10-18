@@ -10,7 +10,7 @@ server:
   # application.yml 文件
 spring:
   profiles:
-    active: test
+    active: prod
 
 
   cas:
@@ -25,7 +25,7 @@ spring.cas.validate-filters: /*
 spring.cas.request-wrapper-filters: /*
 spring.cas.assertion-filters: /*
 #\u8868\u793A\u5FFD\u7565\u62E6\u622A\u7684\u63A5\u53E3\uFF0C\u4E5F\u5C31\u662F\u4E0D\u7528\u8FDB\u884C\u62E6\u622A
-spring.cas.ignore-filters: /user/hello|/studyNews/selectByPgList|/studyNews/read|/webMessage/selectByPgList|/course/selectByPgList|/studyNews/selectByPgList|/course/selectById|/centerIntroduce/*
+spring.cas.ignore-filters: /tzapi/applets/user/nohello|/tzapi/user/hello|/tzapi/studyNews/selectByPgList|/tzapi/studyNews/read|/tzapi/webMessage/selectByPgList|/tzapi/course/selectByPgList|/tzapi/studyNews/selectByPgList|/tzapi/course/selectById|/tzapi/centerIntroduce/*
 #spring.cas.ignore-filters: /*
 #cas\u767B\u5F55\u5730\u5740
 spring.cas.cas-server-login-url: https://sso.bjtzeduyun.com/login

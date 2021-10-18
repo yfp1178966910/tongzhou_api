@@ -22,7 +22,7 @@ import static java.util.UUID.randomUUID;
 
 
 @Controller
-@RequestMapping("/upload")
+@RequestMapping(path = {"/upload","/applets/upload"})
 public class UploadController {
     @Autowired
     TencentCloudConfig tencentCloudConfig;

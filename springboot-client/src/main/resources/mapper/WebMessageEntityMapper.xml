@@ -211,6 +211,11 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateAllReadByUserId" parameterType="java.lang.String">
+    update web_message set was_read = 1 where 1=1 and user_id = #{userId, jdbcType=VARCHAR}
+  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.combanc.cas.client.springboot.entity.WebMessageEntity" >
     update web_message
     set message_title = #{messageTitle,jdbcType=VARCHAR},

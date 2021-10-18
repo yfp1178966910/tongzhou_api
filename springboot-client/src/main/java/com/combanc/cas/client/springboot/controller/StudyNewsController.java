@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @RestController
-@RequestMapping("/studyNews")
+@RequestMapping(path = {"/studyNews", "/applets/studyNews"})
 public class StudyNewsController {
     
     @Autowired

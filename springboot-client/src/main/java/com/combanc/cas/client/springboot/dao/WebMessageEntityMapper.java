@@ -11,6 +11,8 @@ public interface WebMessageEntityMapper extends BaseDao<WebMessageEntity> {
 
     int insert(WebMessageEntity record);
 
+    void updateAllReadByUserId(String userId);
+
     int insertSelective(WebMessageEntity record);
 
     List<WebMessageEntity> selectByExample(WebMessageEntityExample example);

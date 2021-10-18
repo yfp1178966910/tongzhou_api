@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(path = {"/auth", "/applets/auth"})
 public class RoleAuthController {
     @Autowired
     private RoleAuthService roleAuthService;

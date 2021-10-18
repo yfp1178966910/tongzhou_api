@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("/signIn")
+@RequestMapping(path = {"/signIn", "/applets/signIn"})
 public class SignInController {
 
     @Autowired

@@ -3,6 +3,7 @@ package com.combanc.cas.client.springboot;
 import com.combanc.cas.client.springboot.entity.CourseEntity;
 import com.combanc.cas.client.springboot.enums.CourseSortFieldEnum;
 import com.combanc.cas.client.springboot.service.CourseService;
+import com.combanc.cas.client.springboot.utils.Commons;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,11 @@ public class SpringbootClientApplicationTests {
 		CourseEntity courseEntity = new CourseEntity();
 		courseEntity.setSortField("CONCUR_SIGN_UP");
 		courseService.findByPgList(courseEntity);
+	}
+
+	@Test
+	public void testEncryption() {
+		System.out.println(Commons.encryption("912133283"));
 	}
 
 }
